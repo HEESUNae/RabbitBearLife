@@ -5,9 +5,13 @@ export const useLoginForm = () => {
   const router = useRouter();
   const form = useForm();
 
-  const formSubmit = (formData: FieldValues) => {
-    console.log(formData);
-    if (formData.pw === '123123123') {
+  const formSubmit = async (formData: FieldValues) => {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
       router.push('/main');
     } else {
       alert('비밀번호가 틀립니다');
