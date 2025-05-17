@@ -25,3 +25,14 @@ a {
 li {
   list-style: none;
 }
+
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 678px) {
+  .wrap {
+    width: 36.5rem;
+  }
+}
