@@ -7,11 +7,12 @@ interface ButtonProps {
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-export const Button = ({ type = 'button', className, onClick, children }: ButtonProps) => {
+export const Button = ({ type = 'button', className, disabled, onClick, children }: ButtonProps) => {
   return (
-    <StyledButton type={type} className={className} onClick={onClick}>
+    <StyledButton type={type} className={className} disabled={disabled} onClick={onClick}>
       {children}
     </StyledButton>
   );
@@ -32,6 +33,10 @@ const StyledButton = styled.button`
     font-weight: 600;
     background-color: var(--main);
     width: 100%;
+    &:disabled {
+      background-color: var(--gray-back);
+      color: var(--gray-text);
+    }
   }
   &.text {
     color: var(--gray-text);

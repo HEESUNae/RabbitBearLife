@@ -16,14 +16,14 @@ export const PostList = () => {
             <div className="post-header">
               <div>
                 <p className="title">{item.title}</p>
-                <p className="date">{item.createAt}</p>
+                <p className="date">{item.createdAt?.toLocaleString()}</p>
               </div>
               <Button>
                 <Image src="/icons/more.svg" alt="" width={24} height={24} />
               </Button>
             </div>
             <div className="photo">
-              <Image src={item.imgUrl ?? '/icons/photo.svg'} alt="" fill={!!item.imgUrl} width={80} height={80} />
+              <Image src={item.imgUrl ?? '/icons/photo.svg'} fill alt="" />
             </div>
             <p className="content">{item.content}</p>
           </li>
@@ -52,6 +52,7 @@ const StyledPostList = styled.div`
     }
     .photo {
       position: relative;
+      width: 100%;
       height: 20rem;
       background-color: var(--gray-back);
       display: flex;
@@ -59,6 +60,9 @@ const StyledPostList = styled.div`
       justify-content: center;
       border-radius: 0.6rem;
       margin: 1.6rem 0;
+      img {
+        object-fit: cover;
+      }
     }
     .content {
       color: var(--gray-text);

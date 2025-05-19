@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Inter } from 'next/font/google';
 import './globals.css';
 import { ReactQueryProvider } from '@/shared/providers/ReactQueryProvider';
+import { ToastModal } from '@/shared/components/ToastModal';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -28,6 +29,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${montserrat.variable} ${inter.variable}`}>
           <div className="wrap">{children}</div>
+          <ToastModal />
         </body>
       </html>
     </ReactQueryProvider>

@@ -1,17 +1,19 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { PostListType } from '../types';
 
 interface FileUploadProps {
   label?: string;
   required?: boolean;
-  form: UseFormReturn;
+  form: UseFormReturn<PostListType>;
+  handleImgFile: (imgFile: File) => void;
 }
 
-export const FileUpload = ({ label, required, form, ...rest }: FileUploadProps) => {
+export const FileUpload = ({ label, required, form, handleImgFile, ...rest }: FileUploadProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   // 이미지 미리보기
@@ -20,6 +22,7 @@ export const FileUpload = ({ label, required, form, ...rest }: FileUploadProps) 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewUrl(imageUrl);
+      handleImgFile(file);
     }
   };
 
