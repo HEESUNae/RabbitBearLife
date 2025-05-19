@@ -7,7 +7,6 @@ export const fetchPostList = async () => {
     const querySnapshot = await getDocs(collection(firebaseDB, 'posts'));
     return querySnapshot.docs.map((doc) => ({
       id: doc.id,
-      createdAt: doc.data().createdAt?.toDate() ?? new Date(),
       ...(doc.data() as Omit<PostListType, 'id'>),
     }));
   } catch (e) {

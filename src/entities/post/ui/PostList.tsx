@@ -16,7 +16,7 @@ export const PostList = () => {
             <div className="post-header">
               <div>
                 <p className="title">{item.title}</p>
-                <p className="date">{item.createdAt?.toLocaleString()}</p>
+                <p className="date">{item.createdAt?.toDate().toLocaleString()}</p>
               </div>
               <Button>
                 <Image src="/icons/more.svg" alt="" width={24} height={24} />
