@@ -1,22 +1,24 @@
 // 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { usePostQuery } from './usePostQuery';
 import { fetchDeleteImg } from '@/shared/lib/cloudinary';
 
 export const usePostList = () => {
   const [isMore, setIsMore] = useState<boolean[]>([]);
   const { deletePostMutation, postLists } = usePostQuery();
+  const router = useRouter();
+
+  const handleUpdate = (postId: string) => {
+    router.push(`/write?id=${postId}`);
+  };
 
   // 게시글 삭제
   const handleDelete = async (postId: string, imgUrl: string) => {
     try {
-      // love 폴더에서 이미지 삭제
-      const PUBLIC_ID = imgUrl.split('love/')[1].split('.')[0];
-      await fetchDeleteImg(PUBLIC_ID);
-
-      // 게시글 삭제 후 캐싱 무효화
-      await deletePostMutation.mutateAsync(postId);
+      await fetchDeleteImg(imgUrl);
+      await deletePostMutation.mutateAsync(postId); // 게시글 삭제 후 캐싱 무효화
     } catch (e) {
       console.error('삭제 중 오류 발생:', e);
     }
@@ -36,6 +38,7 @@ export const usePostList = () => {
     postLists,
     handleMoreActive,
     handleDelete,
+    handleUpdate,
     isMore,
   };
 };

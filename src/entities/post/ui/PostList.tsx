@@ -6,7 +6,7 @@ import { Button } from '@/shared/components';
 import { usePostList } from '../model/usePostList';
 
 export const PostList = () => {
-  const { postLists, handleMoreActive, isMore, handleDelete } = usePostList();
+  const { postLists, handleMoreActive, isMore, handleDelete, handleUpdate } = usePostList();
   console.log(postLists.data);
 
   return (
@@ -25,7 +25,7 @@ export const PostList = () => {
                 </Button>
                 {isMore[idx] && (
                   <div className="more-menu">
-                    <Button>수정하기</Button>
+                    <Button onClick={() => handleUpdate(item.id)}>수정하기</Button>
                     <Button onClick={() => handleDelete(item.id, item.imgUrl)}>삭제하기</Button>
                   </div>
                 )}

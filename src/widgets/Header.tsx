@@ -59,7 +59,7 @@ const StyledHeader = styled.header`
     .d-day {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.4rem;
       p {
         font-weight: 600;
         font-size: 2rem;
