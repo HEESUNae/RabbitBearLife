@@ -20,26 +20,15 @@ export const useWriteForm = () => {
     setImgFile(imgFile);
   };
 
-  // 새로운 글 작성, 기존 글 수정
+  // 새로운 글 작성 mutation
   const writeMutation = useMutation({
     mutationFn: async (formData: PostListType) => {
-      let imgUrl = formData.imgUrl;
+      if (!imgFile) return;
 
-      if (imgFile) {
-        if (paramsId && updateData?.imgUrl) {
-          await fetchDeleteImg(updateData.imgUrl); // 기존 이미지 삭제
-        }
-        const uploadImgRes = await updateImgFile(imgFile);
-        imgUrl = uploadImgRes.secure_url;
-      }
+      const uploadImgRes = await updateImgFile(imgFile);
+      const imgUrl = uploadImgRes.secure_url;
 
-      const payload = { ...formData, ...(imgUrl !== undefined && { imgUrl }) };
-
-      if (paramsId) {
-        await fetchUpdatePost(paramsId, payload); // 수정
-      } else {
-        await fetchCreatePost('posts', payload); // 새 글 생성
-      }
+      await fetchCreatePost('posts', { ...formData, imgUrl });
     },
     onSuccess: () => {
       router.push('/main');
@@ -50,8 +39,37 @@ export const useWriteForm = () => {
     },
   });
 
+  // 글 수정 mutation
+  const updateMutation = useMutation({
+    mutationFn: async (formData: PostListType) => {
+      if (!paramsId) return;
+
+      if (imgFile && updateData?.imgUrl) {
+        await fetchDeleteImg(updateData.imgUrl); // 기존 이미지 삭제
+
+        const uploadImgRes = await updateImgFile(imgFile);
+        const imgUrl = uploadImgRes.secure_url;
+
+        await fetchUpdatePost(paramsId, { ...formData, imgUrl }); // 이미지 포함해서 변경
+      } else {
+        await fetchUpdatePost(paramsId, formData);
+      }
+    },
+    onSuccess: () => {
+      router.push('/main');
+    },
+    onError: (e) => {
+      console.log(e);
+      alert('글 수정에 실패했습니다.');
+    },
+  });
+
   const formSubmit = (formData: PostListType) => {
-    writeMutation.mutate(formData);
+    if (paramsId) {
+      updateMutation.mutate(formData);
+    } else {
+      writeMutation.mutate(formData);
+    }
   };
 
   // 수정하기 타겟 데이터 찾기
@@ -74,5 +92,6 @@ export const useWriteForm = () => {
     handleImgFile,
     updateData,
     writeMutation,
+    updateMutation,
   };
 };

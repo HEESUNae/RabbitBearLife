@@ -7,7 +7,6 @@ import { usePostList } from '../model/usePostList';
 
 export const PostList = () => {
   const { postLists, handleMoreActive, isMore, handleDelete, handleUpdate } = usePostList();
-  console.log(postLists.data);
 
   return (
     <StyledPostList>
