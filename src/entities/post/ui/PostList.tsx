@@ -6,21 +6,30 @@ import { Button } from '@/shared/components';
 import { usePostList } from '../model/usePostList';
 
 export const PostList = () => {
-  const { postLists } = usePostList();
+  const { postLists, handleMoreActive, isMore, handleDelete } = usePostList();
+  console.log(postLists.data);
 
   return (
     <StyledPostList>
       <ul>
-        {postLists.data?.map((item) => (
+        {postLists.data?.map((item, idx) => (
           <li key={item.id}>
             <div className="post-header">
               <div>
                 <p className="title">{item.title}</p>
                 <p className="date">{item.createdAt?.toDate().toLocaleString()}</p>
               </div>
-              <Button>
-                <Image src="/icons/more.svg" alt="" width={24} height={24} />
-              </Button>
+              <div className="more">
+                <Button onClick={() => handleMoreActive(idx)}>
+                  <Image src="/icons/more.svg" alt="" width={24} height={24} />
+                </Button>
+                {isMore[idx] && (
+                  <div className="more-menu">
+                    <Button>수정하기</Button>
+                    <Button onClick={() => handleDelete(item.id, item.imgUrl)}>삭제하기</Button>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="photo">
               <Image src={item.imgUrl ?? '/icons/photo.svg'} fill alt="" />
@@ -53,7 +62,7 @@ const StyledPostList = styled.div`
     .photo {
       position: relative;
       width: 100%;
-      height: 20rem;
+      height: 30rem;
       background-color: var(--gray-back);
       display: flex;
       align-items: center;
@@ -72,5 +81,26 @@ const StyledPostList = styled.div`
     color: var(--gray-text);
     padding: 2rem;
     text-align: center;
+  }
+
+  .more {
+    position: relative;
+    .more-menu {
+      position: absolute;
+      top: 3rem;
+      right: 0;
+      border-radius: 0.6rem;
+      background-color: #fff;
+      border: 0.1rem solid var(--gray-border);
+      z-index: 999;
+      button {
+        font-size: 1.4rem;
+        word-break: keep-all;
+        padding: 1rem;
+        &:first-of-type {
+          border-bottom: 0.1rem solid var(--gray-border);
+        }
+      }
+    }
   }
 `;
