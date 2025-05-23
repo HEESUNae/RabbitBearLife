@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['res.cloudinary.com'],
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb', // 최대 10MB로 늘림
+    },
+  },
 };
 
 export default nextConfig;

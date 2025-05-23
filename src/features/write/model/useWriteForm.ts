@@ -34,8 +34,7 @@ export const useWriteForm = () => {
       router.push('/main');
     },
     onError: (e) => {
-      console.log(e);
-      alert('글 작성에 실패했습니다.');
+      alert(`글 작성에 실패했습니다. ${e}`);
     },
   });
 
@@ -59,8 +58,7 @@ export const useWriteForm = () => {
       router.push('/main');
     },
     onError: (e) => {
-      console.log(e);
-      alert('글 수정에 실패했습니다.');
+      alert(`글 수정에 실패했습니다. ${e}`);
     },
   });
 
