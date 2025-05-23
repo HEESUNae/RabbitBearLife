@@ -1,0 +1,21 @@
+{
+  "name": "RabbitBearLife",
+  "short_name": "RabbitBearLife",
+  "description": "토끼와 곰돌이의 일상",
+  "icons": [
+    {
+      "src": "/icons/heart.svg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/heart.svg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f79f1f"
+}
