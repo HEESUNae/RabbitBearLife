@@ -12,6 +12,7 @@ cloudinary.config({
 export const fetchDeleteImg = async (imgUrl: string) => {
   try {
     // love 폴더에서 이미지 삭제
+    if (!imgUrl) return;
     const PUBLIC_ID = imgUrl.split('love/')[1].split('.')[0] ?? '';
     await cloudinary.uploader.destroy(`love/${PUBLIC_ID}`);
   } catch (e) {

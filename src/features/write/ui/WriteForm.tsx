@@ -6,14 +6,14 @@ import { Button, Input, Textarea } from '@/shared/components';
 import { FileUpload } from '@/shared/components/FileUpload';
 
 export const WriteForm = () => {
-  const { form, formSubmit, handleImgFile, updateData } = useWriteForm();
+  const { form, formSubmit, handleImgFile, updateData, writeMutation } = useWriteForm();
 
   return (
     <StyledWriteForm onSubmit={form.handleSubmit(formSubmit)}>
       <FileUpload label="사진" required form={form} handleImgFile={handleImgFile} updateData={updateData} />
       <Input label="제목" required {...form.register('title', { required: true })} />
       <Textarea label="내용" {...form.register('content')} />
-      <Button type="submit" className="fill" disabled={!form.formState.isValid}>
+      <Button type="submit" className="fill" disabled={!form.formState.isValid || writeMutation.isPending}>
         작성하기
       </Button>
     </StyledWriteForm>
