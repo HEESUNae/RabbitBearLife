@@ -27,6 +27,11 @@ export default function RootLayout({
   return (
     <ReactQueryProvider>
       <html lang="en">
+        <head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#f79f1f" />
+          <link rel="apple-touch-icon" href="/icons/heart.svg" />
+        </head>
         <body className={`${montserrat.variable} ${inter.variable}`}>
           <div className="wrap">{children}</div>
           <ToastModal />
